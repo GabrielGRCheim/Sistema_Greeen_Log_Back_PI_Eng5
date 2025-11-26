@@ -1,0 +1,54 @@
+package com.senai.demo.services;
+
+import com.senai.demo.dtos.UsuarioRequestDTO;
+import com.senai.demo.dtos.UsuarioResponseDTO;
+import com.senai.demo.mappers.UsuarioMapper;
+import com.senai.demo.models.entities.Usuario;
+import com.senai.demo.models.repositorys.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UsuarioService {
+
+    private final UsuarioRepository repository;
+
+    public UsuarioService(UsuarioRepository repository) {
+        this.repository = repository;
+    }
+
+    public UsuarioResponseDTO criarUsuario(UsuarioRequestDTO dto) {
+        Usuario entity = UsuarioMapper.toEntity(dto);
+        Usuario saved = repository.save(entity);
+        return UsuarioMapper.toDTO(saved);
+    }
+
+    public List<UsuarioResponseDTO> listarTodos() {
+        return UsuarioMapper.toDTOList(repository.findAll());
+    }
+
+    public UsuarioResponseDTO EncotarPorId(Long id) {
+        Usuario entity = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com ID: " + id));
+        return UsuarioMapper.toDTO(entity);
+    }
+
+    public UsuarioResponseDTO atualizar(Long id, UsuarioRequestDTO dto) {
+        Usuario entity = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado com ID: " + id));
+
+        UsuarioMapper.updateEntity(entity, dto);
+
+        Usuario updated = repository.save(entity);
+        return UsuarioMapper.toDTO(updated);
+    }
+
+    public void deletar(Long id) {
+        if (!repository.existsById(id))
+            throw new EntityNotFoundException("Usuário não encontrado com ID: " + id);
+
+        repository.deleteById(id);
+    }
+}
