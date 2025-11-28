@@ -1,0 +1,65 @@
+package com.senai.demo.mappers;
+
+import com.senai.demo.dtos.PontoColetaRequestDTO;
+import com.senai.demo.dtos.PontoColetaResponseDTO;
+import com.senai.demo.models.entities.PontoColeta;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class PontoColetaMapper {
+
+    // RequestDTO → Entity
+    public static PontoColeta toEntity(PontoColetaRequestDTO dto) {
+        if (dto == null) return null;
+
+        PontoColeta ponto = new PontoColeta();
+        ponto.setBairro(dto.getBairro());
+        ponto.setNome(dto.getNome());
+        ponto.setResponsavel(dto.getResponsavel());
+        ponto.setTelefoneResponsavel(dto.getTelefoneResponsavel());
+        ponto.setEmailResponsavel(dto.getEmailResponsavel());
+        ponto.setEndereco(dto.getEndereco());
+        ponto.setTiposResiduoAceitos(dto.getTiposResiduoAceitos());
+
+        return ponto;
+    }
+
+    // Entity → ResponseDTO
+    public static PontoColetaResponseDTO toDTO(PontoColeta ponto) {
+        if (ponto == null) return null;
+
+        return new PontoColetaResponseDTO(
+                ponto.getId(),
+                ponto.getBairro(),
+                ponto.getNome(),
+                ponto.getResponsavel(),
+                ponto.getTelefoneResponsavel(),
+                ponto.getEmailResponsavel(),
+                ponto.getEndereco(),
+                ponto.getTiposResiduoAceitos()
+        );
+    }
+
+    // Atualizar entidade existente a partir do DTO
+    public static void updateEntity(PontoColeta entity, PontoColetaRequestDTO dto) {
+        if (entity == null || dto == null) return;
+
+        entity.setBairro(dto.getBairro());
+        entity.setNome(dto.getNome());
+        entity.setResponsavel(dto.getResponsavel());
+        entity.setTelefoneResponsavel(dto.getTelefoneResponsavel());
+        entity.setEmailResponsavel(dto.getEmailResponsavel());
+        entity.setEndereco(dto.getEndereco());
+        entity.setTiposResiduoAceitos(dto.getTiposResiduoAceitos());
+    }
+
+    // Lista de entidades -> Lista de DTO
+    public static List<PontoColetaResponseDTO> toDTOList(List<PontoColeta> lista) {
+        if (lista == null) return null;
+
+        return lista.stream()
+                .map(PontoColetaMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+}
