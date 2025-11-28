@@ -6,6 +6,8 @@ import com.senai.demo.mappers.UsuarioMapper;
 import com.senai.demo.models.entities.Usuario;
 import com.senai.demo.models.repositorys.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +15,11 @@ import java.util.List;
 @Service
 public class UsuarioService {
 
+    @Autowired
     private final UsuarioRepository repository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UsuarioService(UsuarioRepository repository) {
         this.repository = repository;
@@ -21,6 +27,7 @@ public class UsuarioService {
 
     public UsuarioResponseDTO criarUsuario(UsuarioRequestDTO dto) {
         Usuario entity = UsuarioMapper.toEntity(dto);
+        entity.setSenha(passwordEncoder.encode(dto.getSenha()));
         Usuario saved = repository.save(entity);
         return UsuarioMapper.toDTO(saved);
     }
