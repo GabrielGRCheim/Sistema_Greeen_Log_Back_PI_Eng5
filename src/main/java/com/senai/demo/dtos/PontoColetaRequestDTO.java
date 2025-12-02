@@ -1,8 +1,11 @@
 package com.senai.demo.dtos;
 
 import com.senai.demo.models.entities.Bairro;
+import com.senai.demo.models.enums.TipoResiduo;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
+import java.util.List;
 
 public class PontoColetaRequestDTO {
 
@@ -16,10 +19,8 @@ public class PontoColetaRequestDTO {
     private String telefoneResponsavel;
     private String emailResponsavel;
     private String endereco;
-    private String horarioFuncionamento;
 
-    @NotBlank(message = "Resíduos são obrigatorios")
-    private String tiposResiduoAceitos;
+    private List<TipoResiduo> tiposResiduos;
 
     public PontoColetaRequestDTO() {
     }
@@ -72,19 +73,12 @@ public class PontoColetaRequestDTO {
         this.endereco = endereco;
     }
 
-    public String getHorarioFuncionamento() {
-        return horarioFuncionamento;
+    public List<TipoResiduo> getTiposResiduos() {
+        return tiposResiduos;
     }
 
-    public void setHorarioFuncionamento(String horarioFuncionamento) {
-        this.horarioFuncionamento = horarioFuncionamento;
+    public void setTiposResiduos(List<TipoResiduo> tiposResiduos) {
+        this.tiposResiduos = tiposResiduos;
     }
 
-    public String getTiposResiduoAceitos() {
-        return tiposResiduoAceitos;
-    }
-
-    public void setTiposResiduoAceitos(String tiposResiduoAceitos) {
-        this.tiposResiduoAceitos = tiposResiduoAceitos;
-    }
 }

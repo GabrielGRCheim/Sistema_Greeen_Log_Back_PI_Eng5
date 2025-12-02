@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PontoColetaRepository extends JpaRepository<PontoColeta,Long> {
+
+    PontoColeta findByBairroId(Long bairroId);
 }

@@ -4,10 +4,12 @@ import com.senai.demo.dtos.CaminhaoRequestDTO;
 import com.senai.demo.dtos.CaminhaoResponseDTO;
 import com.senai.demo.mappers.CaminhaoMapper;
 import com.senai.demo.models.entities.Caminhao;
+import com.senai.demo.models.entities.Motorista;
 import com.senai.demo.models.exceptions.BadRequestException;
 import com.senai.demo.models.exceptions.ConflictException;
 import com.senai.demo.models.exceptions.NotFoundException;
 import com.senai.demo.models.repositorys.CaminhaoRepository;
+import com.senai.demo.models.repositorys.MotoristaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +20,11 @@ public class CaminhaoService {
 
     private final CaminhaoRepository caminhaoRepository;
 
-    public CaminhaoService(CaminhaoRepository caminhaoRepository) {
+    private final MotoristaRepository motoristaRepository;
+
+    public CaminhaoService(CaminhaoRepository caminhaoRepository, MotoristaRepository motoristaRepository) {
         this.caminhaoRepository = caminhaoRepository;
+        this.motoristaRepository = motoristaRepository;
     }
 
     // CREATE
@@ -29,8 +34,11 @@ public class CaminhaoService {
         if (caminhaoRepository.findByPlaca(dto.getPlaca()).isPresent()) {
             throw new ConflictException("Já existe um caminhão cadastrado com essa placa.");
         }
+        Motorista motorista = motoristaRepository.findById(dto.getMotorista_id())
+                .orElseThrow(() -> new NotFoundException("Motorista não encontrado."));
 
         Caminhao caminhao = CaminhaoMapper.toEntity(dto);
+        caminhao.setMotorista(motorista);
         Caminhao salvo = caminhaoRepository.save(caminhao);
 
         return CaminhaoMapper.toDTO(salvo);
