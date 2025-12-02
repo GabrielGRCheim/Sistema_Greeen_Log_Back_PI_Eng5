@@ -2,6 +2,7 @@ package com.senai.demo.controllers;
 
 import com.senai.demo.dtos.PontoColetaRequestDTO;
 import com.senai.demo.dtos.PontoColetaResponseDTO;
+import com.senai.demo.models.enums.TipoResiduo;
 import com.senai.demo.services.PontoColetaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,12 @@ public class PontoColetaController {
     @GetMapping
     public ResponseEntity<List<PontoColetaResponseDTO>> listarTodos() {
         return ResponseEntity.ok(pontoColetaService.listarTodos());
+    }
+
+    //
+    @GetMapping("/tipos_residuo")
+    public ResponseEntity<List<TipoResiduo>> listarTiposResiduo() {
+        return ResponseEntity.ok(pontoColetaService.listarTiposResiduo());
     }
 
     // Buscar por ID

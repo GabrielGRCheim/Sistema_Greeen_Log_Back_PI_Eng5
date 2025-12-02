@@ -23,21 +23,32 @@ MERGE INTO RUAS_CONEXOES (id, bairros_origens_id, bairros_destinos_id, distancia
 (9, 3, 5, 3.3),
 (10, 4, 5, 1.8);
 
+MERGE INTO MOTORISTAS (id, nomes, cpf, ativo) VALUES
+(1, 'João Silva', '123.456.789-09', TRUE),
+(2, 'Maria Oliveira', '987.654.321-00', TRUE),
+(3, 'Carlos Souza', '111.222.333-44', TRUE),
+(4, 'Ana Pereira', '555.666.777-88', TRUE),
+(5, 'Lucas Costa', '999.888.777-66', TRUE),
+(6, 'Fernanda Lima', '222.333.444-55', TRUE),
+(7, 'Ricardo Alves', '444.555.666-77', TRUE),
+(8, 'Beatriz Rocha', '333.222.111-00', TRUE),
+(9, 'Paulo Santos', '888.777.666-55', TRUE),
+(10, 'Carolina Martins', '666.555.444-33', TRUE);
 
-MERGE INTO CAMINHOES (id, capacidades, nomes_motoristas, placas, residuos) VALUES
-(1, 5.0, 'João Silva', 'ABC-1234', 'Orgânico'),
-(2, 7.5, 'Maria Oliveira', 'DEF-5678', 'Reciclável'),
-(3, 6.0, 'Carlos Souza', 'GHI-9012', 'Orgânico'),
-(4, 8.0, 'Ana Pereira', 'JKL-3456', 'Reciclável'),
-(5, 4.5, 'Lucas Costa', 'MNO-7890', 'Eletrônico');
+MERGE INTO CAMINHOES (id, capacidades, Motoristas, placas) VALUES
+(1, 5.0, 1, 'ABC-1A23'),
+(2, 7.5, 2, 'DEF-2B34'),
+(3, 6.0, 3, 'GHI-3C45'),
+(4, 8.0, 4, 'JKL-4D56'),
+(5, 4.5, 5, 'MNO-5E67');
 
 
-MERGE INTO PONTOS_COLETAS (id, email_responsavel, enderecos, nomes, responsaveis, telefone_responsavel, tipos_residuo_aceitos, bairro_id) VALUES
-(1, 'joao.silva@email.com', 'Rua das Flores, 123', 'Ponto Central', 'João Silva', '(11) 98765-4321', 'Orgânico', 1),
-(2, 'maria.oliveira@email.com', 'Av. Paulista, 456', 'Ponto Paulista', 'Maria Oliveira', '(11) 91234-5678', 'Reciclável', 2),
-(3, 'carlos.souza@email.com', 'Rua do Sol, 789', 'Ponto Sol', 'Carlos Souza', '(11) 99876-5432', 'Orgânico', 3),
-(4, 'ana.pereira@email.com', 'Av. Brasil, 321', 'Ponto Brasil', 'Ana Pereira', '(11) 97654-3210', 'Reciclável', 4),
-(5, 'lucas.costa@email.com', 'Rua das Laranjeiras, 654', 'Ponto Laranjeiras', 'Lucas Costa', '(11) 93456-7890', 'Eletrônico', 5);
+MERGE INTO PONTOS_COLETAS (id, email_responsavel, enderecos, nomes, responsaveis, telefone_responsavel, bairro_id) VALUES
+(1, 'joao.silva@email.com', 'Rua das Flores, 123', 'Ponto Central', 'João Silva', '(11) 98765-4321', 1),
+(2, 'maria.oliveira@email.com', 'Av. Paulista, 456', 'Ponto Paulista', 'Maria Oliveira', '(11) 91234-5678', 2),
+(3, 'carlos.souza@email.com', 'Rua do Sol, 789', 'Ponto Sol', 'Carlos Souza', '(11) 99876-5432', 3),
+(4, 'ana.pereira@email.com', 'Av. Brasil, 321', 'Ponto Brasil', 'Ana Pereira', '(11) 97654-3210', 4),
+(5, 'lucas.costa@email.com', 'Rua das Laranjeiras, 654', 'Ponto Laranjeiras', 'Lucas Costa', '(11) 93456-7890', 5);
 
 
 -- Para BAIRROS
@@ -58,4 +69,9 @@ SELECT COALESCE(MAX(ID), 0) + 1 FROM CAMINHOES
 -- Para PONTOS_COLETAS
 ALTER TABLE PONTOS_COLETAS ALTER COLUMN ID RESTART WITH (
 SELECT COALESCE(MAX(ID), 0) + 1 FROM PONTOS_COLETAS
+    );
+
+-- Para MOTORISTAS
+ALTER TABLE MOTORISTAS ALTER COLUMN ID RESTART WITH (
+SELECT COALESCE(MAX(ID), 0) + 1 FROM MOTORISTAS
     );
