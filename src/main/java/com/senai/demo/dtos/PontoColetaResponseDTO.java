@@ -17,10 +17,11 @@ public class PontoColetaResponseDTO {
     private String emailResponsavel;
     private String endereco;
     private Set<TipoResiduo> tiposResiduos;
+    private boolean ativo;
 
     public PontoColetaResponseDTO(Long id, BairroResponseDTO bairro, String nome, String responsavel,
                                   String telefoneResponsavel, String emailResponsavel,
-                                  String endereco, Set<TipoResiduo> tiposResiduos) {
+                                  String endereco, Set<TipoResiduo> tiposResiduos, boolean ativo) {
         this.id = id;
         this.bairro = bairro;
         this.nome = nome;
@@ -29,6 +30,7 @@ public class PontoColetaResponseDTO {
         this.emailResponsavel = emailResponsavel;
         this.endereco = endereco;
         this.tiposResiduos = tiposResiduos;
+        this.ativo = ativo;
     }
 
     public PontoColetaResponseDTO() {}
@@ -95,5 +97,13 @@ public class PontoColetaResponseDTO {
 
     public void setTiposResiduos(Set<TipoResiduo> tiposResiduos) {
         this.tiposResiduos = tiposResiduos;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

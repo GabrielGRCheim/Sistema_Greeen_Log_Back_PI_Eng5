@@ -72,7 +72,8 @@ public class ItinerarioMapper {
                     c.getPlaca(),
                     MotoristaMapper.toDTO(c.getMotorista()),
                     c.getCapacidade(),
-                    c.getTiposResiduos().stream().toList()
+                    c.getTiposResiduos().stream().toList(),
+                    c.isAtivo()
             );
         }
 
@@ -89,7 +90,8 @@ public class ItinerarioMapper {
                     stringToListLong(r.getArestas()),
                     r.getDistancia_total(),
                     r.getTiposResiduos(),
-                    r.getDataCriacao()
+                    r.getDataCriacao(),
+                    r.isAtivo()
             );
         }
 
@@ -97,7 +99,8 @@ public class ItinerarioMapper {
                 it.getId(),
                 caminhaoDTO,
                 rotaDTO,
-                it.getDia()
+                it.getDia(),
+                it.isAtivo()
         );
     }
 

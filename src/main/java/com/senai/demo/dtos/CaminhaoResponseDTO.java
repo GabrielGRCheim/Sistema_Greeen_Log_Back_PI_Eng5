@@ -12,13 +12,15 @@ public class CaminhaoResponseDTO {
     private MotoristaResponseDTO motorista;
     private Double capacidade;
     private List<TipoResiduo> tiposResiduos;
+    private boolean ativo;
 
-    public CaminhaoResponseDTO(Long id, String placa, MotoristaResponseDTO motorista, Double capacidade, List<TipoResiduo> tiposResiduos) {
+    public CaminhaoResponseDTO(Long id, String placa, MotoristaResponseDTO motorista, Double capacidade, List<TipoResiduo> tiposResiduos, boolean ativo) {
         this.id = id;
         this.placa = placa;
         this.motorista = motorista;
         this.capacidade = capacidade;
         this.tiposResiduos = tiposResiduos;
+        this.ativo = ativo;
     }
 
     public CaminhaoResponseDTO() {}
@@ -61,5 +63,13 @@ public class CaminhaoResponseDTO {
 
     public void setTiposResiduos(List<TipoResiduo> tiposResiduos) {
         this.tiposResiduos = tiposResiduos;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

@@ -70,7 +70,8 @@ public class PontoColetaMapper {
                 ponto.getTelefoneResponsavel(),
                 ponto.getEmailResponsavel(),
                 ponto.getEndereco(),
-                ponto.getTiposResiduos()
+                ponto.getTiposResiduos(),
+                ponto.isAtivo()
         );
     }
 

@@ -28,6 +28,9 @@ public class Caminhao {
     @Enumerated(EnumType.STRING)
     private Set<TipoResiduo> tiposResiduos = new HashSet<>();
 
+    @Column(name = "Ativo")
+    private boolean ativo = true;
+
     @Transient
     private Residuos residuosDecorator;
 
@@ -36,11 +39,12 @@ public class Caminhao {
         this.residuosDecorator = ResiduoFactory.criar(tiposResiduos.stream().toList());
     }
 
-    public Caminhao(String placa, Motorista motorista_id, Double capacidade, Set<TipoResiduo> tiposResiduos) {
+    public Caminhao(String placa, Motorista motorista_id, Double capacidade, Set<TipoResiduo> tiposResiduos, boolean ativo) {
         this.placa = placa;
         this.motorista = motorista_id;
         this.capacidade = capacidade;
         this.tiposResiduos = tiposResiduos;
+        this.ativo = ativo;
     }
 
     public Caminhao() {}
@@ -84,5 +88,13 @@ public class Caminhao {
     public void setTiposResiduos(Set<TipoResiduo> tipos) {
         this.tiposResiduos = tipos;
         this.residuosDecorator = ResiduoFactory.criar(tipos.stream().toList());
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

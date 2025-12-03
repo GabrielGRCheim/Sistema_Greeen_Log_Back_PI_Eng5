@@ -15,10 +15,11 @@ public class RotaResponseDTO {
     private Float distancia_total;
     private TipoResiduo tiposResiduos;
     private LocalDateTime dataCriacao;
+    private boolean ativo;
 
     public RotaResponseDTO(Long id, CaminhaoResponseDTO caminhao, String nome, List<Long> bairros,
                            List<Long> arestas, Float distancia_total, TipoResiduo tiposResiduos,
-                           LocalDateTime dataCriacao) {
+                           LocalDateTime dataCriacao, boolean ativo) {
 
         this.id = id;
         this.caminhao = caminhao;
@@ -28,6 +29,7 @@ public class RotaResponseDTO {
         this.distancia_total = distancia_total;
         this.tiposResiduos = tiposResiduos;
         this.dataCriacao = dataCriacao;
+        this.ativo = ativo;
     }
 
     public RotaResponseDTO() {
@@ -95,5 +97,13 @@ public class RotaResponseDTO {
 
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

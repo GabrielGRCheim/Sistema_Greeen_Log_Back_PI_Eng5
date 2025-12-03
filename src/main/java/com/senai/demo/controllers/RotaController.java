@@ -2,6 +2,7 @@ package com.senai.demo.controllers;
 
 import com.senai.demo.dtos.RotaRequestDTO;
 import com.senai.demo.dtos.RotaResponseDTO;
+import com.senai.demo.models.enums.TipoResiduo;
 import com.senai.demo.services.RotaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,12 @@ public class RotaController {
     @GetMapping
     public ResponseEntity<List<RotaResponseDTO>> listarTodos() {
         return ResponseEntity.ok(rotaService.listarTodos());
+    }
+
+    //Listar todos os Residuos Disponiveis no Enum
+    @GetMapping("/tipos_residuo")
+    public ResponseEntity<List<TipoResiduo>> listarTiposResiduo() {
+        return ResponseEntity.ok(rotaService.listarTiposResiduo());
     }
 
     // Buscar por ID

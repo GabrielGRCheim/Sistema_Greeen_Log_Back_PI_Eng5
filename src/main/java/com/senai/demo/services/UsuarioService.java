@@ -4,6 +4,7 @@ import com.senai.demo.dtos.UsuarioRequestDTO;
 import com.senai.demo.dtos.UsuarioResponseDTO;
 import com.senai.demo.mappers.UsuarioMapper;
 import com.senai.demo.models.entities.Usuario;
+import com.senai.demo.models.exceptions.NotFoundException;
 import com.senai.demo.models.repositorys.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,19 @@ public class UsuarioService {
 
     public List<UsuarioResponseDTO> listarTodos() {
         return UsuarioMapper.toDTOList(repository.findAll());
+    }
+
+    public List<UsuarioResponseDTO> listarAtivos() {
+        return UsuarioMapper.toDTOList(repository.findByAtivo(true));
+    }
+
+    // Ativar/Inativar
+    public UsuarioResponseDTO alterarStatus(Long id, boolean ativo) {
+        Usuario usuario = repository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Usuario não encontrado com ID: " + id));
+        usuario.setAtivo(ativo);
+        repository.save(usuario);
+        return UsuarioMapper.toDTO(usuario);
     }
 
     public UsuarioResponseDTO EncontrarPorId(Long id) {

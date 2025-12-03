@@ -70,7 +70,8 @@ public class RotaMapper {
                     c.getPlaca(),
                     MotoristaMapper.toDTO(c.getMotorista()),
                     c.getCapacidade(),
-                    c.getTiposResiduos().stream().toList()
+                    c.getTiposResiduos().stream().toList(),
+                    c.isAtivo()
             );
         }
 
@@ -82,7 +83,8 @@ public class RotaMapper {
                 stringToListLong(rota.getArestas()),
                 rota.getDistancia_total(),
                 rota.getTiposResiduos(),
-                rota.getDataCriacao()
+                rota.getDataCriacao(),
+                rota.isAtivo()
         );
     }
 

@@ -32,16 +32,20 @@ public class Rota {
     @Enumerated(EnumType.STRING)
     private TipoResiduo tiposResiduos;
 
+    @Column(name = "Ativo")
+    private boolean ativo = true;
+
     @Column(name = "Data_Criacao", updatable = false)
     private LocalDateTime dataCriacao =  LocalDateTime.now().minusNanos(0);
 
-    public Rota(Float distancia_total, TipoResiduo tiposResiduos, String bairros, String arestas, String nome, Caminhao caminhaoDesignado) {
+    public Rota(Float distancia_total, TipoResiduo tiposResiduos, String bairros, String arestas, String nome, Caminhao caminhaoDesignado, boolean ativo) {
         this.distancia_total = distancia_total;
         this.tiposResiduos = tiposResiduos;
         this.arestas = arestas;
         this.bairros = bairros;
         this.nome = nome;
         this.caminhaoDesignado = caminhaoDesignado;
+        this.ativo = ativo;
     }
 
     public Rota() {}
@@ -104,5 +108,13 @@ public class Rota {
 
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

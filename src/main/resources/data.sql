@@ -36,11 +36,11 @@ MERGE INTO MOTORISTAS (id, nomes, cpf, ativo) VALUES
 (10, 'Carolina Martins', '666.555.444-33', TRUE);
 
 MERGE INTO CAMINHOES (id, capacidades, Motoristas, placas) VALUES
-(1, 5.0, 1, 'ABC-1A23'),
-(2, 7.5, 2, 'DEF-2B34'),
-(3, 6.0, 3, 'GHI-3C45'),
-(4, 8.0, 4, 'JKL-4D56'),
-(5, 4.5, 5, 'MNO-5E67');
+(1, 5.0, 1, 'ABC1A23'),
+(2, 7.5, 2, 'DEF2B34'),
+(3, 6.0, 3, 'GHI3C45'),
+(4, 8.0, 4, 'JKL4D56'),
+(5, 4.5, 5, 'MNO5E67');
 
 
 MERGE INTO PONTOS_COLETAS (id, email_responsavel, enderecos, nomes, responsaveis, telefone_responsavel, bairro_id) VALUES

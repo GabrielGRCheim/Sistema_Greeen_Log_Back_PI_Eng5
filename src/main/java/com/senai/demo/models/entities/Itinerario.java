@@ -19,12 +19,17 @@ public class Itinerario {
     @JoinColumn(name = "Rota_id")
     private Rota rota;
 
+    @Column(name = "Data")
     private LocalDate dia;
 
-    public Itinerario(Caminhao caminhao, Rota rota, LocalDate dia) {
+    @Column(name = "Ativo")
+    private boolean ativo = true;
+
+    public Itinerario(Caminhao caminhao, Rota rota, LocalDate dia, boolean ativo) {
         this.caminhao = caminhao;
         this.rota = rota;
         this.dia = dia;
+        this.ativo = ativo;
     }
 
     public Itinerario() {
@@ -56,5 +61,13 @@ public class Itinerario {
 
     public void setDia(LocalDate dia) {
         this.dia = dia;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

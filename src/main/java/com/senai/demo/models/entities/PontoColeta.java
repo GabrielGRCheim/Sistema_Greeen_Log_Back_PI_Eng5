@@ -44,6 +44,9 @@ public class PontoColeta {
     @Column(name = "tipo_residuo")
     private Set<TipoResiduo> tiposResiduos = new HashSet<>();
 
+    @Column(name = "Ativo")
+    private boolean ativo = true;
+
     @Transient
     private Residuos residuosDecorator;
 
@@ -52,7 +55,7 @@ public class PontoColeta {
         this.residuosDecorator = ResiduoFactory.criar(tiposResiduos.stream().toList());
     }
 
-    public PontoColeta(Bairro bairro, String nome, String responsavel, String telefoneResponsavel, String emailResponsavel, String endereco, Set<TipoResiduo> tiposResiduos) {
+    public PontoColeta(Bairro bairro, String nome, String responsavel, String telefoneResponsavel, String emailResponsavel, String endereco, Set<TipoResiduo> tiposResiduos, boolean ativo) {
         this.bairro = bairro;
         this.nome = nome;
         this.responsavel = responsavel;
@@ -60,6 +63,7 @@ public class PontoColeta {
         this.emailResponsavel = emailResponsavel;
         this.endereco = endereco;
         this.tiposResiduos = tiposResiduos;
+        this.ativo = ativo;
     }
 
     public PontoColeta() {}
@@ -123,6 +127,14 @@ public class PontoColeta {
     public void setTiposResiduos(Set<TipoResiduo> tipos) {
         this.tiposResiduos = tipos;
         this.residuosDecorator = ResiduoFactory.criar(tipos.stream().toList());
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }
 

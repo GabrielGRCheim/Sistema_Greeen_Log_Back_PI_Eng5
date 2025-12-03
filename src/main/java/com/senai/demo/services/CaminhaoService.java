@@ -2,9 +2,14 @@ package com.senai.demo.services;
 
 import com.senai.demo.dtos.CaminhaoRequestDTO;
 import com.senai.demo.dtos.CaminhaoResponseDTO;
+import com.senai.demo.dtos.MotoristaResponseDTO;
+import com.senai.demo.dtos.PontoColetaResponseDTO;
 import com.senai.demo.mappers.CaminhaoMapper;
+import com.senai.demo.mappers.MotoristaMapper;
+import com.senai.demo.mappers.PontoColetaMapper;
 import com.senai.demo.models.entities.Caminhao;
 import com.senai.demo.models.entities.Motorista;
+import com.senai.demo.models.enums.TipoResiduo;
 import com.senai.demo.models.exceptions.BadRequestException;
 import com.senai.demo.models.exceptions.ConflictException;
 import com.senai.demo.models.exceptions.NotFoundException;
@@ -12,6 +17,7 @@ import com.senai.demo.models.repositorys.CaminhaoRepository;
 import com.senai.demo.models.repositorys.MotoristaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,6 +81,23 @@ public class CaminhaoService {
 
         Caminhao atualizado = caminhaoRepository.save(existente);
         return CaminhaoMapper.toDTO(atualizado);
+    }
+
+    public List<CaminhaoResponseDTO> listarAtivos() {
+        return CaminhaoMapper.toDTOList(caminhaoRepository.findByAtivo(true));
+    }
+
+    // Ativar/Inativar
+    public CaminhaoResponseDTO alterarStatus(Long id, boolean ativo) {
+        Caminhao caminhao = caminhaoRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Caminhão não encontrado com ID: " + id));
+        caminhao.setAtivo(ativo);
+        caminhaoRepository.save(caminhao);
+        return CaminhaoMapper.toDTO(caminhao);
+    }
+
+    public List<TipoResiduo> listarTiposResiduo() {
+        return Arrays.stream(TipoResiduo.values()).toList();
     }
 
     // DELETAR
