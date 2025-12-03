@@ -1,9 +1,15 @@
 package com.senai.demo.services;
 
+import com.senai.demo.dtos.CaminhaoResponseDTO;
 import com.senai.demo.dtos.RotaRequestDTO;
 import com.senai.demo.dtos.RotaResponseDTO;
+import com.senai.demo.dtos.UsuarioResponseDTO;
+import com.senai.demo.mappers.CaminhaoMapper;
 import com.senai.demo.mappers.RotaMapper;
+import com.senai.demo.mappers.UsuarioMapper;
 import com.senai.demo.models.entities.*;
+import com.senai.demo.models.enums.TipoResiduo;
+import com.senai.demo.models.exceptions.NotFoundException;
 import com.senai.demo.models.padraoprojeto.factory.ResiduoFactory;
 import com.senai.demo.models.padraoprojeto.factory.RotaFactory;
 import com.senai.demo.models.repositorys.*;
@@ -11,6 +17,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -105,6 +112,22 @@ public class RotaService {
         rota.setTiposResiduos(rotaVerificada.getTiposResiduos());
 
         return RotaMapper.toDTO(rotaRepository.save(rota));
+    }
+    public List<RotaResponseDTO> listarAtivos() {
+        return RotaMapper.toDTOList(rotaRepository.findByAtivo(true));
+    }
+
+    // Ativar/Inativar
+    public RotaResponseDTO alterarStatus(Long id, boolean ativo) {
+        Rota rota = rotaRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Rota não encontrado com ID: " + id));
+        rota.setAtivo(ativo);
+        rotaRepository.save(rota);
+        return RotaMapper.toDTO(rota);
+    }
+
+    public List<TipoResiduo> listarTiposResiduo() {
+        return Arrays.stream(TipoResiduo.values()).toList();
     }
 
     public void deletar(Long id) {

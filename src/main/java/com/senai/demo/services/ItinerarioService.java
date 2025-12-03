@@ -1,11 +1,16 @@
 package com.senai.demo.services;
 
+import com.senai.demo.dtos.CaminhaoResponseDTO;
 import com.senai.demo.dtos.ItinerarioRequestDTO;
 import com.senai.demo.dtos.ItinerarioResponseDTO;
+import com.senai.demo.dtos.PontoColetaResponseDTO;
+import com.senai.demo.mappers.CaminhaoMapper;
 import com.senai.demo.mappers.ItinerarioMapper;
+import com.senai.demo.mappers.PontoColetaMapper;
 import com.senai.demo.models.entities.Caminhao;
 import com.senai.demo.models.entities.Itinerario;
 import com.senai.demo.models.entities.Rota;
+import com.senai.demo.models.exceptions.NotFoundException;
 import com.senai.demo.models.repositorys.CaminhaoRepository;
 import com.senai.demo.models.repositorys.ItinerarioRepository;
 import com.senai.demo.models.repositorys.RotaRepository;
@@ -76,6 +81,19 @@ public class ItinerarioService {
         Itinerario updated = itinerarioRepository.save(entity);
 
         return ItinerarioMapper.toDTO(updated);
+    }
+
+    public List<ItinerarioResponseDTO> listarAtivos() {
+        return ItinerarioMapper.toDTOList(itinerarioRepository.findByAtivo(true));
+    }
+
+    // Ativar/Inativar
+    public ItinerarioResponseDTO alterarStatus(Long id, boolean ativo) {
+        Itinerario itinerario = itinerarioRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Itinerario não encontrado com ID: " + id));
+        itinerario.setAtivo(ativo);
+        itinerarioRepository.save(itinerario);
+        return ItinerarioMapper.toDTO(itinerario);
     }
 
     public void deletar(Long id) {

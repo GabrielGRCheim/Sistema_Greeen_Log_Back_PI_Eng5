@@ -7,8 +7,9 @@ public class UsuarioResponseDTO {
     private Long id;
     private String nome;
     private String email;
+    private boolean ativo;
 
-    public UsuarioResponseDTO(Long id, String nome, String email) {
+    public UsuarioResponseDTO(Long id, String nome, String email, boolean ativo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -39,5 +40,13 @@ public class UsuarioResponseDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

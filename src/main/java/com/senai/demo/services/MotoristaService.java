@@ -2,7 +2,9 @@ package com.senai.demo.services;
 
 import com.senai.demo.dtos.MotoristaRequestDTO;
 import com.senai.demo.dtos.MotoristaResponseDTO;
+import com.senai.demo.dtos.PontoColetaResponseDTO;
 import com.senai.demo.mappers.MotoristaMapper;
+import com.senai.demo.mappers.PontoColetaMapper;
 import com.senai.demo.models.entities.Motorista;
 import com.senai.demo.models.exceptions.NotFoundException;
 import com.senai.demo.models.repositorys.MotoristaRepository;
@@ -24,7 +26,6 @@ public class MotoristaService {
     // Criar um novo motorista
     public MotoristaResponseDTO criar(MotoristaRequestDTO dto) {
         Motorista motorista = MotoristaMapper.toEntity(dto);
-        motorista.setAtivo(true);
         motoristaRepository.save(motorista);
         return MotoristaMapper.toDTO(motorista);
     }
@@ -50,6 +51,10 @@ public class MotoristaService {
 
         motoristaRepository.save(motorista);
         return MotoristaMapper.toDTO(motorista);
+    }
+
+    public List<MotoristaResponseDTO> listarAtivos() {
+        return MotoristaMapper.toDTOList(motoristaRepository.findByAtivo(true));
     }
 
     // Ativar/Inativar motorista

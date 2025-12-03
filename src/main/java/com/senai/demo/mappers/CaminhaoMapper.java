@@ -70,7 +70,8 @@ public class CaminhaoMapper {
                 caminhao.getPlaca(),
                 motoristaDTO,
                 caminhao.getCapacidade(),
-                caminhao.getTiposResiduos().stream().toList()
+                caminhao.getTiposResiduos().stream().toList(),
+                caminhao.isAtivo()
         );
     }
 

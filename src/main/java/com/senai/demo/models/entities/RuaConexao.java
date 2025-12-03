@@ -25,6 +25,13 @@ public class RuaConexao {
         this.distancia = distancia;
     }
 
+    public RuaConexao(Long id, Long origemId, Long destinoId, Float distancia) {
+        this.id = id;
+        this.origemId = origemId;
+        this.destinoId = destinoId;
+        this.distancia = distancia;
+    }
+
     public RuaConexao() {}
 
     public Long getId() {

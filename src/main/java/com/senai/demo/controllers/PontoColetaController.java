@@ -33,7 +33,7 @@ public class PontoColetaController {
         return ResponseEntity.ok(pontoColetaService.listarTodos());
     }
 
-    //
+    //Listar todos os Residuos Disponiveis no Enum
     @GetMapping("/tipos_residuo")
     public ResponseEntity<List<TipoResiduo>> listarTiposResiduo() {
         return ResponseEntity.ok(pontoColetaService.listarTiposResiduo());

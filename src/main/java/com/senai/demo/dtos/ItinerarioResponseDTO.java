@@ -8,12 +8,14 @@ public class ItinerarioResponseDTO {
     private CaminhaoResponseDTO caminhao;
     private RotaResponseDTO rota;
     private LocalDate dia;
+    private boolean ativo;
 
-    public ItinerarioResponseDTO(Long id, CaminhaoResponseDTO caminhao, RotaResponseDTO rota, LocalDate dia) {
+    public ItinerarioResponseDTO(Long id, CaminhaoResponseDTO caminhao, RotaResponseDTO rota, LocalDate dia,  boolean ativo) {
         this.id = id;
         this.dia = dia;
         this.caminhao = caminhao;
         this.rota = rota;
+        this.ativo = ativo;
     }
 
     public Long getId() {
@@ -42,5 +44,13 @@ public class ItinerarioResponseDTO {
 
     public void setDia(LocalDate dia) {
         this.dia = dia;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }

@@ -21,7 +21,7 @@ public class Motorista {
 
     @NotNull
     @Column(name = "Ativo")
-    private boolean ativo;
+    private boolean ativo = true;
 
     public Motorista() {
     }
